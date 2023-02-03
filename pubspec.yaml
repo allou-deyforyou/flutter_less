@@ -1,6 +1,6 @@
-name: less
-description: A package that provides a notification system
-version: 0.0.1
+name: flutter_less
+description: A dart package that helps implement the BLoC pattern.
+version: 0.0.2
 homepage: https://github.com/vodino/less.git
 
 environment:

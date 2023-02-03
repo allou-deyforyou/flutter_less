@@ -1,7 +1,7 @@
 #!/bin/sh
 # This is a generated file; do not edit or check into version control.
 export "FLUTTER_ROOT=/Users/macbookpro/development/flutter"
-export "FLUTTER_APPLICATION_PATH=/Users/macbookpro/Desktop/less"
+export "FLUTTER_APPLICATION_PATH=/Users/macbookpro/Desktop/less/flutter_less"
 export "COCOAPODS_PARALLEL_CODE_SIGN=true"
 export "FLUTTER_TARGET=lib/main.dart"
 export "FLUTTER_BUILD_DIR=build"
