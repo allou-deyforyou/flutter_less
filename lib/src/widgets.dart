@@ -7,13 +7,13 @@ typedef ValueWidgetWhen<T> = bool Function(T previous, T current);
 
 class LessBuilder<T> extends StatefulWidget {
   const LessBuilder({
-    Key? key,
+    super.key,
     required this.valueListenable,
     required this.builder,
     this.initiated = false,
-    required this.child,
     this.buildWhen,
-  }) : super(key: key);
+    this.child,
+  });
 
   final ValueListenable<T> valueListenable;
   final ValueWidgetWhen<T>? buildWhen;
@@ -67,13 +67,13 @@ class _LessBuilderState<T> extends State<LessBuilder<T>> {
 
 class LessListener<T> extends StatefulWidget {
   const LessListener({
-    Key? key,
+    super.key,
     required this.valueListenable,
     required this.listener,
     this.initiated = false,
     required this.child,
     this.listenWhen,
-  }) : super(key: key);
+  });
 
   final ValueListenable<T> valueListenable;
   final ValueWidgetListener<T> listener;
@@ -127,7 +127,7 @@ class _LessListenerState<T> extends State<LessListener<T>> {
 
 class LessConsumer<T> extends StatelessWidget {
   const LessConsumer({
-    Key? key,
+    super.key,
     required this.valueListenable,
     this.initiated = false,
     required this.listener,
@@ -135,7 +135,7 @@ class LessConsumer<T> extends StatelessWidget {
     this.listenWhen,
     this.buildWhen,
     this.child,
-  }) : super(key: key);
+  });
 
   final ValueListenable<T> valueListenable;
   final ValueWidgetListener<T> listener;
