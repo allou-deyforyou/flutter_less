@@ -9,16 +9,16 @@ class LessBuilder<T> extends StatefulWidget {
   const LessBuilder({
     super.key,
     required this.valueListenable,
+    this.fireImmediately = false,
     required this.builder,
-    this.initiated = false,
-    this.buildWhen,
+    this.canBuild,
     this.child,
   });
 
   final ValueListenable<T> valueListenable;
-  final ValueWidgetWhen<T>? buildWhen;
   final ValueWidgetBuilder<T> builder;
-  final bool initiated;
+  final ValueWidgetWhen<T>? canBuild;
+  final bool fireImmediately;
   final Widget? child;
 
   @override
@@ -32,7 +32,7 @@ class _LessBuilderState<T> extends State<LessBuilder<T>> {
   void initState() {
     super.initState();
     value = widget.valueListenable.value;
-    if (widget.initiated) _valueChanged();
+    if (widget.fireImmediately) _valueChanged();
     widget.valueListenable.addListener(_valueChanged);
   }
 
@@ -53,7 +53,7 @@ class _LessBuilderState<T> extends State<LessBuilder<T>> {
   }
 
   bool _canListen() {
-    final canListen = widget.buildWhen?.call(value, widget.valueListenable.value);
+    final canListen = widget.canBuild?.call(value, widget.valueListenable.value);
     return canListen == null || canListen;
   }
 
@@ -69,16 +69,16 @@ class LessListener<T> extends StatefulWidget {
   const LessListener({
     super.key,
     required this.valueListenable,
+    this.fireImmediately = false,
     required this.listener,
-    this.initiated = false,
     required this.child,
-    this.listenWhen,
+    this.canListen,
   });
 
   final ValueListenable<T> valueListenable;
   final ValueWidgetListener<T> listener;
-  final ValueWidgetWhen<T>? listenWhen;
-  final bool initiated;
+  final ValueWidgetWhen<T>? canListen;
+  final bool fireImmediately;
   final Widget child;
 
   @override
@@ -92,7 +92,7 @@ class _LessListenerState<T> extends State<LessListener<T>> {
   void initState() {
     super.initState();
     value = widget.valueListenable.value;
-    if (widget.initiated) _valueChanged();
+    if (widget.fireImmediately) _valueChanged();
     widget.valueListenable.addListener(_valueChanged);
   }
 
@@ -113,7 +113,7 @@ class _LessListenerState<T> extends State<LessListener<T>> {
   }
 
   bool _canListen() {
-    final canListen = widget.listenWhen?.call(value, widget.valueListenable.value);
+    final canListen = widget.canListen?.call(value, widget.valueListenable.value);
     return canListen == null || canListen;
   }
 
@@ -129,20 +129,20 @@ class LessConsumer<T> extends StatelessWidget {
   const LessConsumer({
     super.key,
     required this.valueListenable,
-    this.initiated = false,
+    this.fireImmediately = false,
     required this.listener,
     required this.builder,
-    this.listenWhen,
-    this.buildWhen,
+    this.canListen,
+    this.canBuild,
     this.child,
   });
 
   final ValueListenable<T> valueListenable;
   final ValueWidgetListener<T> listener;
-  final ValueWidgetWhen<T>? listenWhen;
-  final ValueWidgetWhen<T>? buildWhen;
+  final ValueWidgetWhen<T>? canListen;
+  final ValueWidgetWhen<T>? canBuild;
   final ValueWidgetBuilder<T> builder;
-  final bool initiated;
+  final bool fireImmediately;
 
   final Widget? child;
 
@@ -150,12 +150,12 @@ class LessConsumer<T> extends StatelessWidget {
   Widget build(BuildContext context) {
     return LessListener<T>(
       valueListenable: valueListenable,
-      listenWhen: listenWhen,
-      initiated: initiated,
+      canListen: canListen,
+      fireImmediately: fireImmediately,
       listener: listener,
       child: LessBuilder<T>(
         valueListenable: valueListenable,
-        buildWhen: buildWhen,
+        canBuild: canBuild,
         builder: builder,
         child: child,
       ),
