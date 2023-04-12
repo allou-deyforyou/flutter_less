@@ -6,6 +6,7 @@ class LessNotifier<T> extends ValueNotifier<T> {
 }
 
 abstract class LessEvent<T> {
+  const LessEvent();
   @protected
   Future<void> execute(LessNotifier<T> notifier);
 }

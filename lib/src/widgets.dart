@@ -3,13 +3,12 @@ import 'package:flutter/widgets.dart';
 
 typedef ValueWidgetListener<T> = void Function(BuildContext context, T value);
 
-typedef ValueWidgetWhen<T> = bool Function(T previous, T current);
+typedef ValueWidgetWhen<T> = bool Function(T previousState, T currentState);
 
 class LessBuilder<T> extends StatefulWidget {
   const LessBuilder({
     super.key,
     required this.valueListenable,
-    this.fireImmediately = false,
     required this.builder,
     this.canBuild,
     this.child,
@@ -18,7 +17,6 @@ class LessBuilder<T> extends StatefulWidget {
   final ValueListenable<T> valueListenable;
   final ValueWidgetBuilder<T> builder;
   final ValueWidgetWhen<T>? canBuild;
-  final bool fireImmediately;
   final Widget? child;
 
   @override
@@ -32,7 +30,6 @@ class _LessBuilderState<T> extends State<LessBuilder<T>> {
   void initState() {
     super.initState();
     value = widget.valueListenable.value;
-    if (widget.fireImmediately) _valueChanged();
     widget.valueListenable.addListener(_valueChanged);
   }
 
@@ -69,7 +66,7 @@ class LessListener<T> extends StatefulWidget {
   const LessListener({
     super.key,
     required this.valueListenable,
-    this.fireImmediately = false,
+    this.autoListen = false,
     required this.listener,
     required this.child,
     this.canListen,
@@ -78,7 +75,7 @@ class LessListener<T> extends StatefulWidget {
   final ValueListenable<T> valueListenable;
   final ValueWidgetListener<T> listener;
   final ValueWidgetWhen<T>? canListen;
-  final bool fireImmediately;
+  final bool autoListen;
   final Widget child;
 
   @override
@@ -92,7 +89,7 @@ class _LessListenerState<T> extends State<LessListener<T>> {
   void initState() {
     super.initState();
     value = widget.valueListenable.value;
-    if (widget.fireImmediately) _valueChanged();
+    if (widget.autoListen) _valueChanged();
     widget.valueListenable.addListener(_valueChanged);
   }
 
@@ -129,7 +126,7 @@ class LessConsumer<T> extends StatelessWidget {
   const LessConsumer({
     super.key,
     required this.valueListenable,
-    this.fireImmediately = false,
+    this.autoListen = false,
     required this.listener,
     required this.builder,
     this.canListen,
@@ -142,7 +139,7 @@ class LessConsumer<T> extends StatelessWidget {
   final ValueWidgetWhen<T>? canListen;
   final ValueWidgetWhen<T>? canBuild;
   final ValueWidgetBuilder<T> builder;
-  final bool fireImmediately;
+  final bool autoListen;
 
   final Widget? child;
 
@@ -150,8 +147,8 @@ class LessConsumer<T> extends StatelessWidget {
   Widget build(BuildContext context) {
     return LessListener<T>(
       valueListenable: valueListenable,
+      autoListen: autoListen,
       canListen: canListen,
-      fireImmediately: fireImmediately,
       listener: listener,
       child: LessBuilder<T>(
         valueListenable: valueListenable,
