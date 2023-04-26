@@ -50,7 +50,8 @@ class _LessBuilderState<T> extends State<LessBuilder<T>> {
   }
 
   bool _canListen() {
-    final canListen = widget.canBuild?.call(value, widget.valueListenable.value);
+    final canListen =
+        widget.canBuild?.call(value, widget.valueListenable.value);
     return canListen == null || canListen;
   }
 
@@ -59,7 +60,8 @@ class _LessBuilderState<T> extends State<LessBuilder<T>> {
   }
 
   @override
-  Widget build(BuildContext context) => widget.builder(context, value, widget.child);
+  Widget build(BuildContext context) =>
+      widget.builder(context, value, widget.child);
 }
 
 class LessListener<T> extends StatefulWidget {
@@ -110,7 +112,8 @@ class _LessListenerState<T> extends State<LessListener<T>> {
   }
 
   bool _canListen() {
-    final canListen = widget.canListen?.call(value, widget.valueListenable.value);
+    final canListen =
+        widget.canListen?.call(value, widget.valueListenable.value);
     return canListen == null || canListen;
   }
 

@@ -1,6 +1,6 @@
 name: flutter_less
 description: A dart package that helps implement the BLoC pattern.
-version: 0.0.5
+version: 0.0.6
 homepage: https://github.com/vodino/flutter_less.git
 
 environment:

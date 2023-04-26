@@ -1,3 +1,5 @@
-## 0.0.5
+## 0.0.6
 
-* TODO: Describe initial release.
+### Enhancements
+
+- LessService improvements
