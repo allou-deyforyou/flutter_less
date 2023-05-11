@@ -118,7 +118,7 @@ class _LessListenerState<T> extends State<LessListener<T>> {
   }
 
   void _valueChanged() {
-    if (_canListen()) widget.listener(context, value);
+    if (_canListen()) widget.listener(context, value = widget.valueListenable.value);
   }
 
   @override
